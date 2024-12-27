@@ -1,0 +1,33 @@
+body {
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#container {
+    background-color:rgb(9, 88, 33);
+    display: flex;
+    width: 600px;
+    height: 300px;
+    flex-direction:column-reverse;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10%;
+    padding: 5%;
+}
+
+#result {
+    width: 600px;
+    height: 200px;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+button{
+    background-color: black;
+    color: white;
+    border-radius: 10%;
+}

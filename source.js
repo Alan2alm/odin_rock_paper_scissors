@@ -1,14 +1,39 @@
+const buttons = document.querySelectorAll("button");
+const displayScore = document.querySelectorAll("#score > p");
+const winnerDisplay = document.querySelector("#winner");
 let humanScore = 0;
 let computerScore = 0;
 
-console.log("hello, world!");
-console.log(getComputerChoise());
-playRound();
+viewScores();
+
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    playRound(button.textContent);
+  });
+});
 
 function viewScores(){
-    console.log("Your score: " + humanScore);
-    console.log("The computer score: " + computerScore);
+    displayScore[0].textContent = "Your score: " + humanScore;
+    displayScore[1].textContent = "The computer score: " + computerScore;
+    showWinner();
+    
 }
+
+function restartScores(){
+    humanScore = 0;
+    computerScore = 0;
+    displayScore[0].textContent = "Your score: " + humanScore;
+    displayScore[1].textContent = "The computer score: " + computerScore;
+    winnerDisplay.textContent = "";
+};
+
+function showWinner(){
+    if (humanScore == 5 ){
+        winnerDisplay.textContent = "You win!";
+    } else if (computerScore == 5){
+        winnerDisplay.textContent = "You lose!";
+    }
+};
 
 function getComputerChoise(){
     let choise;
@@ -26,44 +51,32 @@ function getComputerChoise(){
     return choise;
 }
 
-function getHumanChoise(){
-    let choise = String(prompt("what will you play? rock/paper/scissors?")).toLowerCase();
-    switch(choise){
-        case "rock":
-            console.log(choise);
-            return choise;
-            break;
-        case "paper":
-            console.log(choise);
-            return choise;
-            break;
-        case "scissors":
-            console.log(choise);
-            return choise;
-            break;
-        default:
-            getHumanChoise();
-    }
-}
-
-function playRound (){
-    let humanChoise = getHumanChoise();
+function playRound (e){
+    let humanChoise = e.toLowerCase();
     let computerChoise = getComputerChoise();
+
+    if (humanScore >= 5 ){
+        restartScores();
+    } else if (computerScore >= 5){
+        restartScores();
+    }
+
     if(humanChoise === computerChoise){
-        console.log("Draw!");
+        winnerDisplay.textContent = "Draw!";
     }else if(humanChoise === "rock" && computerChoise === "paper"){
-        console.log("You lose! Paper beats Rock");
+        winnerDisplay.textContent = "You lose! paper beats rock";
         computerScore = computerScore + 1;
     } else if(humanChoise === "paper" && computerChoise === "scissors"){
-        console.log("You lose! Scissors beats Paper");
+        winnerDisplay.textContent = "You lose! scissors beats paper";
         computerScore = computerScore + 1;
     } else if(humanChoise === "scissors" && computerChoise === "rock"){
-        console.log("You lose! Rock beats Scissors");
+        winnerDisplay.textContent = "You lose! rock beats scissors";
         computerScore = computerScore + 1;
     }else{
-        console.log("You win! " + humanChoise.tou + " beats " + computerChoise);
+        winnerDisplay.textContent = "You win! " + humanChoise + " beats " + computerChoise;
         humanScore = humanScore + 1;
-    };
+    }
+    viewScores();
 }
 
 function getRandomInt(max) {
